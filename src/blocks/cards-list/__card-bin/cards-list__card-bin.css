@@ -1,0 +1,10 @@
+.cards-list__card-bin {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.cards-list__card-bin:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}

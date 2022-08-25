@@ -1,0 +1,10 @@
+.cards-list__info {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    position: relative;
+    align-items: center;
+    padding-right: 20px;
+}

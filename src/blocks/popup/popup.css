@@ -1,0 +1,20 @@
+.popup {
+    position: fixed;
+    min-width: 100vw;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    display: flex;
+    opacity: 0;
+    align-items: center;
+    justify-content: center;
+    transition: visibility 1s linear, opacity 1s linear;
+    visibility: hidden;
+}
+
+@media screen and (max-height: 900px) {
+    .popup {
+        min-height: 100vh;
+    }
+}
