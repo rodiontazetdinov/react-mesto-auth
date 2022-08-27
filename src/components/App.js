@@ -1,8 +1,12 @@
 import {useEffect, useState} from 'react';
+import { Route, Routes } from 'react-router-dom';
+
 
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
+import Register from './Register';
+import Login from './Login';
 import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
@@ -153,16 +157,23 @@ function App() {
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
                 <Header/>
-                <Main
-                  onEditProfile={handleEditProfileClick}
-                  onAddPlace={handleAddPlaceClick}
-                  onEditAvatar={handleEditAvatarClick}
-                  onCardClick={handleCardClick}
-                  cards={cards}
-                  onCardLike={handleCardLike}
-                  onCardDelete={setCard}
-                  onBinClick={changeDeleteState}
-                />
+                <Routes>
+                    <Route path={'/sign-up'} element={<Register />}/>
+                    <Route path={'/sign-in'} element={<Login/>}/>
+                    <Route 
+                        path={'/'}
+                        element ={<Main
+                            onEditProfile={handleEditProfileClick}
+                            onAddPlace={handleAddPlaceClick}
+                            onEditAvatar={handleEditAvatarClick}
+                            onCardClick={handleCardClick}
+                            cards={cards}
+                            onCardLike={handleCardLike}
+                            onCardDelete={setCard}
+                            onBinClick={changeDeleteState}
+                        />}
+                    />
+                </Routes>
                 <Footer/>
                 <EditProfilePopup
                   isOpen={isEditProfilePopupOpen}
