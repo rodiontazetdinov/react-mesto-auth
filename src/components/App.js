@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 
 import Header from './Header';
@@ -12,11 +12,13 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmDeletePopup from './ConfirmDeletePopup';
+import ProtectedRoute from './ProtectedRoute';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 import {api} from '../utils/Api.js';
 
 function App() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
     const [isAddPlacePopupOpen , changePlaceState] = useState(false);
     const [isEditAvatarPopupOpen, changeAvatarState] = useState(false);
@@ -158,11 +160,10 @@ function App() {
             <div className="page">
                 <Header/>
                 <Routes>
-                    <Route path={'/sign-up'} element={<Register />}/>
+                    <Route path={'/sign-up'} element={<Register/>}/>
                     <Route path={'/sign-in'} element={<Login/>}/>
-                    <Route 
-                        path={'/'}
-                        element ={<Main
+                    <Route path={'/'} element={<ProtectedRoute/>}>
+                        <Route path='/' element={<Main
                             onEditProfile={handleEditProfileClick}
                             onAddPlace={handleAddPlaceClick}
                             onEditAvatar={handleEditAvatarClick}
@@ -171,8 +172,16 @@ function App() {
                             onCardLike={handleCardLike}
                             onCardDelete={setCard}
                             onBinClick={changeDeleteState}
-                        />}
-                    />
+                            />}>
+                        </Route>
+                    </Route>
+                    <Route>
+                        {isLoggedIn ? (
+                           () => <Navigate to="/" />
+                        ) : (
+                            () => <Navigate to="/sign-in" />
+                        )}
+                    </Route>
                 </Routes>
                 <Footer/>
                 <EditProfilePopup
