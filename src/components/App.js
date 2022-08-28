@@ -11,6 +11,8 @@ import ImagePopup from './ImagePopup';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import InfoToolTip from './InfoToolTip';
+
 import ConfirmDeletePopup from './ConfirmDeletePopup';
 import ProtectedRoute from './ProtectedRoute';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
@@ -20,6 +22,7 @@ import {api} from '../utils/Api.js';
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
+    const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
     const [isAddPlacePopupOpen , changePlaceState] = useState(false);
     const [isEditAvatarPopupOpen, changeAvatarState] = useState(false);
     const [isDeletePopupOpen, changeDeleteState] = useState(false);
@@ -103,6 +106,7 @@ function App() {
         changeProfileOpenState(false);
         changeAvatarState(false);
         changeDeleteState(false);
+        setIsInfoToolTipOpen(false);
         selectCard({
             link: "#",
             status: ''
@@ -208,6 +212,7 @@ function App() {
                   btnValue={profilePopupBtnValue}
                 /> 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
+                <InfoToolTip isOpen={isInfoToolTipOpen} onClose={closeAllPopups}/>
             </div>
         </CurrentUserContext.Provider>
     </div>
