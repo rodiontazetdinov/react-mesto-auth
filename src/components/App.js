@@ -21,6 +21,7 @@ import {api} from '../utils/Api.js';
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
     const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
     const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
     const [isAddPlacePopupOpen , changePlaceState] = useState(false);
@@ -212,7 +213,7 @@ function App() {
                   btnValue={profilePopupBtnValue}
                 /> 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
-                <InfoToolTip isOpen={isInfoToolTipOpen} onClose={closeAllPopups}/>
+                <InfoToolTip isRegistered={isRegistered} isOpen={isInfoToolTipOpen} onClose={closeAllPopups}/>
             </div>
         </CurrentUserContext.Provider>
     </div>
