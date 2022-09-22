@@ -20,7 +20,10 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import {api} from '../utils/Api.js';
 
 function App() {
+    const [isAuthorized, setIsAuthorized] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isOnLogin, setIsOnLogin] = useState(true);
+    const [token, setToken] = useState('');
     const [isRegistered, setIsRegistered] = useState(false);
     const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
     const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
@@ -33,6 +36,8 @@ function App() {
     const [addCardPopupBtnValue, setAddCardPopupBtnValue] = useState('Создать');
     const [cards, setCards] = useState([]);
     const [card, setCard] = useState({});
+
+
 
     useEffect(() => {
         api.getInitialCards()
@@ -158,16 +163,36 @@ function App() {
 
         closeAllPopups();
     }
+
+    function handleRegistration (res) {
+        setIsInfoToolTipOpen(true);
+        if (res.data) {
+            setIsRegistered(true);
+        }
+    }
+
+    function handleLogin (res) {
+        if (res) {
+            console.log(res);
+            setIsLoggedIn(true);
+            setToken(res.token);
+            console.log(token);
+        }
+    }
     
   return (
     <div className="App">
         <CurrentUserContext.Provider value={currentUser}>
             <div className="page">
-                <Header/>
+                <Header isLoggedIn={isLoggedIn} isAuthorized={isAuthorized} isOnLogin={isOnLogin} onPageChange={setIsOnLogin}/>
                 <Routes>
-                    <Route path={'/sign-up'} element={<Register/>}/>
-                    <Route path={'/sign-in'} element={<Login/>}/>
-                    <Route path={'/'} element={<ProtectedRoute/>}>
+                    <Route 
+                        path={'/sign-up'}
+                        element={<Register onSubmit={handleRegistration} isRegistered={isRegistered}/>}/>
+                    <Route 
+                        path={'/sign-in'}
+                        element={<Login onSubmit={handleLogin} isLoggedIn={isLoggedIn}/>}/>
+                    <Route path={'/'} element={<ProtectedRoute token={token}/>}>
                         <Route path='/' element={<Main
                             onEditProfile={handleEditProfileClick}
                             onAddPlace={handleAddPlaceClick}
@@ -179,13 +204,6 @@ function App() {
                             onBinClick={changeDeleteState}
                             />}>
                         </Route>
-                    </Route>
-                    <Route>
-                        {isLoggedIn ? (
-                           () => <Navigate to="/" />
-                        ) : (
-                            () => <Navigate to="/sign-in" />
-                        )}
                     </Route>
                 </Routes>
                 <Footer/>

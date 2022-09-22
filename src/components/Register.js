@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import * as auth from '../utils/auth.js';
 import React from 'react';
 
@@ -17,17 +17,15 @@ function Register (props) {
     }
 
     function handleSubmit (e) {
-        console.log('submitted');
         e.preventDefault();
-        console.log('submitted');
 
         auth.register(email, password)
         .then((res) => {
-            console.log(res);
+            props.onSubmit(res);
         });
     } 
 
-    return (
+    return ( !props.isRegistered ?
         <div className='auth-container'>
             <form className='auth' onSubmit={handleSubmit}>
                 <h2 className='auth__header'>Регистрация</h2>
@@ -40,6 +38,8 @@ function Register (props) {
                 </div>
             </form>
         </div>
+        :
+        <Navigate to='/sign-in'/>
     );
 }
 

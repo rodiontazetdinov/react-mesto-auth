@@ -1,5 +1,6 @@
 import * as auth from '../utils/auth.js';
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 
 function Login (props) {
 
@@ -15,25 +16,27 @@ function Login (props) {
     }
 
     function handleSubmit (e) {
-        console.log('submitted');
         e.preventDefault();
-        console.log('submitted');
 
         auth.login(email, password)
         .then((res) => {
-            console.log(res);
+            props.onSubmit(res);
         });
     } 
 
-    return (
+    
+
+    return ( !props.isLoggedIn?
         <div className='auth-container'>
             <form className='auth' onSubmit={handleSubmit}>
                 <h2 className='auth__header'>Вход</h2>
-                <input className='auth__input' minLength={6} maxLength={16} placeholder='Email' value={email || ''} onChange={handleEmailInput}/>
+                <input className='auth__input' minLength={6} maxLength={32} placeholder='Email' value={email || ''} onChange={handleEmailInput}/>
                 <input className='auth__input' minLength={8} maxLength={16} type="password" placeholder='Пароль' value={password || ''} onChange={handlePasswordInput}/>
                 <button className='auth__btn' type='submit'>Войти</button>
             </form>
         </div>
+        :
+        <Navigate to='/'/>
     );
 }
 

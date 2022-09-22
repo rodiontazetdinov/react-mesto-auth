@@ -4,7 +4,7 @@ import error from '../images/error-icon.png';
 
 function InfoToolTip (props) {
     return (
-    <div className={`popup popup_type ${props.ispen ? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type ${props.isOpen ? 'popup_opened' : ''}`}>
         <div className="popup__container">
             <button type="button" className="popup__close" aria-label="закрыть"><img src={close} alt="иконка закрыть" className="popup__icon" onClick={props.onClose}/></button>
             <div className='popup__result'>

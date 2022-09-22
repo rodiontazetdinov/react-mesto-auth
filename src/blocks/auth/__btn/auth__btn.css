@@ -11,3 +11,8 @@
     padding-bottom: 14px;
     margin-top: 216px;
 }
+
+.auth__btn:hover {
+    cursor: pointer;
+    opacity: 0.85;
+}

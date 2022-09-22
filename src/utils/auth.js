@@ -7,21 +7,16 @@ export const register = (email, password) => {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({email, password})
+    body: JSON.stringify({
+        email: email,
+        password: password
+    })
   })
   .then((response) => {
-    try {
-      if (response.status === 200){
+        console.log(response);
         return response.json();
-      }
-    } catch(e){
-      return (e)
-    }
-  })
-  .then((res) => {
-    console.log(res);
-    return res;
-  })
+    })
+
   .catch((err) => console.log(err));
 }; 
 
@@ -35,17 +30,9 @@ export const login = (email, password) => {
       body: JSON.stringify({email, password})
     })
     .then((response) => {
-      try {
-        if (response.status === 200){
-          return response.json();
-        }
-      } catch(e){
-        return (e)
-      }
+        console.log(response);
+        return response.json();
     })
-    .then((res) => {
-      console.log(res);
-      return res;
-    })
-    .catch((err) => console.log(err));
+
+  .catch((err) => console.log(err));
   }; 

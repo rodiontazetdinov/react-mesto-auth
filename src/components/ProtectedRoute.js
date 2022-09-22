@@ -1,10 +1,10 @@
 import React from "react";
-import { Route, Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
-const ProtectedRoute = () => {
-    let auth = {'token': false};
+const ProtectedRoute = ({ token }) => {
+    
     return (
-          auth.token ? <Outlet/> : <Navigate to="/sign-in" />
+          token ? <Outlet/> : <Navigate to="/sign-in" />
     );
   };
   
