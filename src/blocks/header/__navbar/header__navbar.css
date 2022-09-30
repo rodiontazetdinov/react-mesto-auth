@@ -1,0 +1,19 @@
+.header__navbar {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and (max-width: 900px) {
+    .header__navbar {
+        margin-right: 27px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .header__navbar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        order: 0;
+    }
+}

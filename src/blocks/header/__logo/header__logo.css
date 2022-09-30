@@ -6,12 +6,19 @@
 @media screen and (min-width: 450px) {
     .header__logo {
         width: 142px;
+
     }
 }
 
 @media screen and (min-width: 900px) {
     .header__logo {
         margin: 45px 0 37px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .header__logo {
+        order: 1;
     }
 }
 

@@ -1,7 +1,7 @@
 import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom';
 
-function Header({ isLoggedIn, isAuthorized, isOnLogin, onPageChange}) {
+function Header({ isLoggedIn, isAuthorized, isOnLogin, onPageChange, userEmail, onExit}) {
 
     function handlePage () {
         onPageChange(!isOnLogin)
@@ -9,11 +9,14 @@ function Header({ isLoggedIn, isAuthorized, isOnLogin, onPageChange}) {
 
     return (
         <header className="header">
-            <img src={logo} alt="логотип" className="header__logo"/>
-            {isAuthorized?
+            
+            {isLoggedIn?
                 <>
-                    <div className='header__email'>email</div>
-                    <Link className='header__link' to={'/sign-in'}>Выйти</Link>
+                    <img src={logo} alt="логотип" className="header__logo"/>
+                    <nav className="header__navbar">
+                        <div className='header__email'>{userEmail}</div>
+                        <Link className='header__link' to={'/sign-in'} onClick={onExit}>Выйти</Link>
+                    </nav>
                 </>
                  :
                  

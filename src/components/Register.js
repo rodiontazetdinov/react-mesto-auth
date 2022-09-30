@@ -3,7 +3,7 @@ import * as auth from '../utils/auth.js';
 import React from 'react';
 
 
-function Register (props) {
+function Register ({ onRegSubmit, isRegistered, onPageChange, isOnLogin }) {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -21,11 +21,15 @@ function Register (props) {
 
         auth.register(email, password)
         .then((res) => {
-            props.onSubmit(res);
+            onRegSubmit(res);
         });
-    } 
+    }
 
-    return ( !props.isRegistered ?
+    function handlePage () {
+        onPageChange(!isOnLogin)
+    }
+
+    return ( !isRegistered ?
         <div className='auth-container'>
             <form className='auth' onSubmit={handleSubmit}>
                 <h2 className='auth__header'>Регистрация</h2>
@@ -34,7 +38,7 @@ function Register (props) {
                 <button className='auth__btn' type='submit' >Зарегистрироваться</button>
                 <div className='auth__link-container'>
                     <p className='auth__text'>Уже зарегестрированы?</p>
-                    <Link className='auth__link' to={'/sign-in'}>Войти</Link>
+                    <Link className='auth__link' to={'/sign-in'} onClick={handlePage}>Войти</Link>
                 </div>
             </form>
         </div>
