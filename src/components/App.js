@@ -23,7 +23,7 @@ function App() {
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOnLogin, setIsOnLogin] = useState(true);
-    const [token, setToken] = useState('');
+    //const [token, setToken] = useState('');
     const [isRegistered, setIsRegistered] = useState(false);
     const [userData, setUserData] = useState({});
     const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
@@ -56,6 +56,7 @@ function App() {
     const handleExit = () => {
         localStorage.removeItem('token')
         setIsLoggedIn(false);
+        setUserData({});
     };
 
     useEffect(() => {
@@ -200,12 +201,11 @@ function App() {
         if (res) {
             console.log(res);
             setIsLoggedIn(true);
-            setToken(res.token);
             if (res.token) {
                 localStorage.setItem('token', res.token);
             }
-            console.log(token);
         }
+        tokenCheck();
     }
     
   return (

@@ -1,0 +1,27 @@
+.header__menu-close-btn {
+    display: none;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.header__menu-close-btn:hover {
+    cursor: pointer;
+    opacity: 0.6;
+    
+}
+
+@media screen and (max-width: 450px) {
+    .header__menu-close-btn {
+        background-image:url('./../../../images/close_icon.svg');
+        display: block;
+        margin-right: 24px;
+    }
+}

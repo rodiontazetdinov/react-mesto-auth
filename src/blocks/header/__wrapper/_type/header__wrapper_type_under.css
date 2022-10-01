@@ -1,0 +1,6 @@
+.header__wrapper_type_under {
+    order: 50;
+    width: 100%;
+    align-items: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}

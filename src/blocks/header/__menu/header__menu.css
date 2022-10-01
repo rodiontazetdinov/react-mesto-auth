@@ -1,0 +1,25 @@
+.header__menu {
+    display: none;
+    width: 24px;
+    height: 18px;
+    background-color: transparent;
+    outline: none;
+    padding: 0;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-size: contain;
+}
+
+.header__menu:hover {
+    cursor: pointer;
+    
+}
+
+@media screen and (max-width: 450px) {
+    .header__menu {
+        background-image:url('./../../../images/burger.png');
+        display: block;
+        margin-right: 24px;
+    }
+}

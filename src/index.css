@@ -2,10 +2,22 @@
 @import url(./vendor/fonts/InterWeb/inter.css);
 @import url(./blocks/page/page.css);
 @import url(./blocks/header/header.css);
+@import url(./blocks/header/__wrapper/header__wrapper.css);
+
+@import url(./blocks/header/__menu/header__menu.css);
+@import url(./blocks/header/__menu/_closed/header__menu_closed.css);
+@import url(./blocks/header/__menu-close-btn/header__menu-close-btn.css);
+@import url(./blocks/header/_type/header_type_logged-out.css);
 @import url(./blocks/header/__navbar/header__navbar.css);
 @import url(./blocks/header/__logo/header__logo.css);
+/* @import url(./blocks/header/__logo/_type_under/header__logo_type_under.css); */
+@import url(./blocks/header/__wrapper/_type/header__wrapper_type_under.css);
+
 @import url(./blocks/header/__email/header__email.css);
 @import url(./blocks/header/__link/header__link.css);
+@import url(./blocks/header/__link/_isOpen/header__link_isOpen.css);
+@import url(./blocks/header/__link/_onAuth/header__link_onAuth.css);
+@import url(./blocks/header/__email/_isOpen/header__email_isOpen.css);
 @import url(./blocks/content/content.css);
 @import url(./blocks/profile/profile.css);
 @import url(./blocks/profile/__avatar/profile__avatar.css);
