@@ -42,7 +42,7 @@ function App() {
         if (!token) return;
 
         setIsLoggedIn(true);
-        auth.getContent(token)
+        auth.checkToken(token)
         .then(data => {
             setUserData(data.data);
         })
@@ -151,7 +151,7 @@ function App() {
         .catch(err => {
             console.log(err);
             setProfilePopupBtnValue('Сохранить');
-        })
+        });
 
         closeAllPopups();
     }
@@ -195,7 +195,6 @@ function App() {
 
     function handleLogin (res) {
         if (res) {
-            console.log(res);
             setIsLoggedIn(true);
             if (res.token) {
                 localStorage.setItem('token', res.token);
@@ -221,7 +220,7 @@ function App() {
                     <Route 
                         path={'/sign-in'}
                         element={<Login onSubmit={handleLogin} isLoggedIn={isLoggedIn}/>}/>
-                    <Route path={'/'} element={<ProtectedRoute loginCheck={isLoggedIn}/>}>
+                    <Route  path={'/'} element={<ProtectedRoute loginCheck={isLoggedIn}/>}>
                         <Route path='/' element={<Main
                             onEditProfile={handleEditProfileClick}
                             onAddPlace={handleAddPlaceClick}
