@@ -12,7 +12,6 @@ function Header({ isLoggedIn, isOnLogin, onPageChange, userEmail, onExit}) {
 
     useEffect(() => {
         size.width < 450 ? setWindowIsMobile(true) : setWindowIsMobile(false);
-        console.log(isLoggedIn);
     }, [size]);
 
     function  handleMenu() {

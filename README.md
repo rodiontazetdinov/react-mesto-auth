@@ -22,4 +22,4 @@
  - кастомный hook для отслеживания размера экрана
 
 
-## [Ссылка на проект(<- нажми сюда)](https://rodiontazetdinov.github.io/mesto-react-auth/):
+## [Ссылка на проект(<- нажми сюда)](https://rodiontazetdinov.github.io/react-mesto-auth/):

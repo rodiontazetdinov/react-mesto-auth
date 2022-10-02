@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useHistory } from 'react-router-dom';
 
 import * as auth from '../utils/auth.js';
 import Header from './Header';
