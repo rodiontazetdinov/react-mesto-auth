@@ -23,6 +23,7 @@ function Card(props) {
             name: props.name
         }
         props.onCardClick(card);
+        console.log(props.name)
     }
 
     function handleLikeClick () {
