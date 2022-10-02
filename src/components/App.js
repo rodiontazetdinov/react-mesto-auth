@@ -20,10 +20,8 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import {api} from '../utils/Api.js';
 
 function App() {
-    const [isAuthorized, setIsAuthorized] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isOnLogin, setIsOnLogin] = useState(true);
-    //const [token, setToken] = useState('');
     const [isRegistered, setIsRegistered] = useState(false);
     const [userData, setUserData] = useState({});
     const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
@@ -46,15 +44,13 @@ function App() {
         setIsLoggedIn(true);
         auth.getContent(token)
         .then(data => {
-            console.log(data.data._id);
             setUserData(data.data);
-            //console.log(userData);
         })
         .catch((err) => console.log(err));
     };
 
     const handleExit = () => {
-        localStorage.removeItem('token')
+        localStorage.removeItem('token');
         setIsLoggedIn(false);
         setUserData({});
     };
@@ -214,7 +210,6 @@ function App() {
             <div className="page">
                 <Header
                     isLoggedIn={isLoggedIn}
-                    isAuthorized={isAuthorized}
                     isOnLogin={isOnLogin}
                     onPageChange={setIsOnLogin}
                     onExit={handleExit}
