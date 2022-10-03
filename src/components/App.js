@@ -24,15 +24,16 @@ function App() {
     const [isOnLogin, setIsOnLogin] = useState(true);
     const [isRegistered, setIsRegistered] = useState(false);
     const [userData, setUserData] = useState({});
-    const [isEditProfilePopupOpen, changeProfileOpenState] = useState(false);
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
-    const [isAddPlacePopupOpen , changePlaceState] = useState(false);
-    const [isEditAvatarPopupOpen, changeAvatarState] = useState(false);
-    const [isDeletePopupOpen, changeDeleteState] = useState(false);
+    const [isAddPlacePopupOpen , setIsAddPlacePopupOpen] = useState(false);
+    const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+    const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
     const [selectedCard, selectCard] = useState({});
     const [currentUser, setCurrentUserInfo] = useState({});
     const [profilePopupBtnValue, setProfilePopupBtnValue] = useState('Сохранить');
     const [addCardPopupBtnValue, setAddCardPopupBtnValue] = useState('Создать');
+    const [isLoading, setIsLoading] = useState(false);
     const [cards, setCards] = useState([]);
     const [card, setCard] = useState({});
 
@@ -114,15 +115,15 @@ function App() {
     } 
 
     function handleEditAvatarClick () {
-        changeAvatarState(!isEditAvatarPopupOpen);
+        setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     }
 
     function handleEditProfileClick () {
-        changeProfileOpenState(!isEditProfilePopupOpen);
+        setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
     }
 
     function handleAddPlaceClick () {
-        changePlaceState(!isAddPlacePopupOpen);
+        setIsAddPlacePopupOpen(!isAddPlacePopupOpen);
     }
 
     function handleCardClick (card) {
@@ -130,10 +131,10 @@ function App() {
     }
 
     function closeAllPopups () {
-        changePlaceState(false);
-        changeProfileOpenState(false);
-        changeAvatarState(false);
-        changeDeleteState(false);
+        setIsAddPlacePopupOpen(false);
+        setIsEditProfilePopupOpen(false);
+        setIsEditAvatarPopupOpen(false);
+        setIsDeletePopupOpen(false);
         setIsInfoToolTipOpen(false);
         selectCard({
             link: "#",
@@ -142,45 +143,45 @@ function App() {
     }
 
     function handleUpdateUser (obj) {
-        setProfilePopupBtnValue('Сохранение...');
+        setIsLoading(true);
         api.patchUserInfo(obj)
         .then(userData => {
             setCurrentUserInfo(userData);
-            setProfilePopupBtnValue('Сохранить');
+            setIsLoading(false);
         })
         .catch(err => {
             console.log(err);
-            setProfilePopupBtnValue('Сохранить');
+            setIsLoading(false);
         });
 
         closeAllPopups();
     }
 
     function handleUpdateAvatar (obj) {
-        setProfilePopupBtnValue('Сохранение...');
+        setIsLoading(true);
         api.setAvatar(obj)
         .then(userData => {
             setCurrentUserInfo(userData);
-            setProfilePopupBtnValue('Сохранить');
+            setIsLoading(false);
         })
         .catch(err => {
             console.log(err);
-            setProfilePopupBtnValue('Сохранить');
+            setIsLoading(false);
         })
 
         closeAllPopups();
     }
 
     function handleAddPlaceSubmit (obj) {
-        setAddCardPopupBtnValue('Создание...');
+        setIsLoading(true);
         api.postNewCard(obj)
         .then(newCard => {
             setCards([newCard, ...cards]);
-            setAddCardPopupBtnValue('Создать');
+            setIsLoading(false);
         })
         .catch(err => {
             console.log(err);
-            setAddCardPopupBtnValue('Создать');
+            setIsLoading(false);
         })
 
         closeAllPopups();
@@ -229,7 +230,7 @@ function App() {
                             cards={cards}
                             onCardLike={handleCardLike}
                             onCardDelete={setCard}
-                            onBinClick={changeDeleteState}
+                            onBinClick={setIsDeletePopupOpen}
                             />}>
                         </Route>
                     </Route>
@@ -239,13 +240,13 @@ function App() {
                   isOpen={isEditProfilePopupOpen}
                   onClose={closeAllPopups}
                   onUpdateUser={handleUpdateUser}
-                  btnValue={profilePopupBtnValue}
+                  btnValue={isLoading? 'Сохранение...' : 'Сохранить'}
                 />
                 <AddPlacePopup 
                   isOpen={isAddPlacePopupOpen}
                   onClose={closeAllPopups}
                   onCardAdd={handleAddPlaceSubmit}
-                  btnValue={addCardPopupBtnValue}
+                  btnValue={isLoading? 'Создание...' : 'Создать'}
                 />
                 <ConfirmDeletePopup 
                   onCardDelete={handleDeleteCard}
@@ -256,7 +257,7 @@ function App() {
                   isOpen={isEditAvatarPopupOpen}
                   onClose={closeAllPopups}
                   onUpdateAvatar={handleUpdateAvatar}
-                  btnValue={profilePopupBtnValue}
+                  btnValue={isLoading? 'Сохранение...' : 'Сохранить'}
                 /> 
                 <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
                 <InfoToolTip isRegistered={isRegistered} isOpen={isInfoToolTipOpen} onClose={closeAllPopups}/>

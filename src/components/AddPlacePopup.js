@@ -36,6 +36,7 @@ function AddPlacePopup(props) {
           onSubmit={handleSubmit}
         >
             <Input
+              className={'popup__input popup__input_type_user-place'}
               name={'name'}
               id={'text'}
               placeholder={'Название'}
@@ -46,6 +47,7 @@ function AddPlacePopup(props) {
             />
             <span className="popup__error" id="text-error"></span>
             <Input
+              className={'popup__input popup__input_type_user-link'}
               name={'link'}
               id={'url'}
               placeholder={'Ссылка на картинку'}
