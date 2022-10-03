@@ -1,13 +1,12 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function ConfirmDeletePopup(props) {
+function ConfirmDeletePopup({ onCardDelete, isOpen, onClose}) {
     
     function handleSubmit(e) {
         e.preventDefault();
       
-        props.onCardDelete();
-        props.onClose();
+        onCardDelete();
       } 
 
     return (
@@ -16,8 +15,8 @@ function ConfirmDeletePopup(props) {
           name={'confirm'}
           btnValue='Да' 
           onSubmit={handleSubmit}
-          isOpen={props.isOpen}
-          onClose={props.onClose}
+          isOpen={isOpen}
+          onClose={onClose}
         />
     )
 }

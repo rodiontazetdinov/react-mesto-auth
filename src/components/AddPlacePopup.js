@@ -4,7 +4,7 @@ import Input from './Input';
 
 import { useForm } from './../utils/Hooks.js';
 
-function AddPlacePopup(props) {
+function AddPlacePopup({ isOpen, onCardAdd, btnValue, onClose }) {
 
     const {values, handleChange, setValues} = useForm({});
 
@@ -13,14 +13,14 @@ function AddPlacePopup(props) {
         name: '',
         link: ''
       });
-   },[props.isOpen])
+   },[isOpen])
     
     function handleSubmit(e) {
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
       
         // Передаём значения управляемых компонентов во внешний обработчик
-        props.onCardAdd({
+        onCardAdd({
           name: values.name,
           link: values.link
         });
@@ -30,9 +30,9 @@ function AddPlacePopup(props) {
         <PopupWithForm 
           title={'Новое место'}
           name = {'card-add'}
-          btnValue={props.btnValue}
-          isOpen={props.isOpen}
-          onClose={props.onClose}
+          btnValue={btnValue}
+          isOpen={isOpen}
+          onClose={onClose}
           onSubmit={handleSubmit}
         >
             <Input

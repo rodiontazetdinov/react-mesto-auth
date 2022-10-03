@@ -1,5 +1,4 @@
 import { Link, Navigate } from 'react-router-dom';
-import * as auth from '../utils/auth.js';
 import React from 'react';
 import { useForm } from './../utils/Hooks.js';
 import Input from './Input';
@@ -11,11 +10,8 @@ function Register ({ onRegSubmit, isRegistered, onPageChange, isOnLogin }) {
 
     function handleSubmit (e) {
         e.preventDefault();
-
-        auth.register(values.email, values.password)
-        .then((res) => {
-            onRegSubmit(res);
-        });
+        
+        onRegSubmit(values.email, values.password);
     }
 
     function handlePage () {

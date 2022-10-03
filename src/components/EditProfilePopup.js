@@ -4,7 +4,7 @@ import {CurrentUserContext} from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
 import { useForm } from './../utils/Hooks.js';
 
-function EditProfilePopup(props) {
+function EditProfilePopup({ isOpen, onUpdateUser, btnValue, onClose }) {
 
     const {values, handleChange, setValues} = useForm({});
 
@@ -17,14 +17,14 @@ function EditProfilePopup(props) {
         name: currentUser.name,
         about: currentUser.about
       });
-    }, [props.isOpen]);
+    }, [isOpen]);
     
     function handleSubmit(e) {
         // Запрещаем браузеру переходить по адресу формы
         e.preventDefault();
       
         // Передаём значения управляемых компонентов во внешний обработчик
-        props.onUpdateUser({
+        onUpdateUser({
           name: values.name,
           about: values.about
         });
@@ -34,9 +34,9 @@ function EditProfilePopup(props) {
         <PopupWithForm 
             title={'Редактировать профиль'}
             name = {'name'} 
-            btnValue={props.btnValue} 
-            isOpen={props.isOpen} 
-            onClose={props.onClose}
+            btnValue={btnValue} 
+            isOpen={isOpen} 
+            onClose={onClose}
             onSubmit={handleSubmit}>
             <Input className={'popup__input popup__input_type_user-name'} id="name" name="name" placeholder="Имя" maxLength="40" value={values.name || ''} onChange={handleChange} />
             <span className="popup__error" id="name-error"></span>

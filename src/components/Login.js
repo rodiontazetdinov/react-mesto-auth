@@ -1,23 +1,19 @@
-import * as auth from '../utils/auth.js';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useForm } from './../utils/Hooks.js';
 import Input from './Input';
 
-function Login (props) {
+function Login ({ onSubmit, isLoggedIn }) {
 
     const {values, handleChange, setValues} = useForm({});
 
     function handleSubmit (e) {
         e.preventDefault();
 
-        auth.login(values.email, values.password)
-        .then((res) => {
-            props.onSubmit(res);
-        });
+        onSubmit(values.email, values.password);
     } 
 
-    return ( !props.isLoggedIn?
+    return ( !isLoggedIn?
         <div className='auth-container'>
             <form className='auth' onSubmit={handleSubmit}>
                 <h2 className='auth__header'>Вход</h2>

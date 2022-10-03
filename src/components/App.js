@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { Route, Routes, useHistory } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import * as auth from '../utils/auth.js';
 import Header from './Header';
@@ -106,6 +106,7 @@ function App() {
         api.removeMyCard(card._id)
         .then((deletedCard) => {
             setCards((cards) => cards.filter((item) => item._id != card._id));
+            closeAllPopups();
         })
         .catch(err => {
             console.log(err);
@@ -161,14 +162,14 @@ function App() {
         api.patchUserInfo(obj)
         .then(userData => {
             setCurrentUserInfo(userData);
-            setIsLoading(false);
+            closeAllPopups();
         })
         .catch(err => {
             console.log(err);
+        })
+        .finally(() => {
             setIsLoading(false);
         });
-
-        closeAllPopups();
     }
 
     function handleUpdateAvatar (obj) {
@@ -176,14 +177,14 @@ function App() {
         api.setAvatar(obj)
         .then(userData => {
             setCurrentUserInfo(userData);
-            setIsLoading(false);
+            closeAllPopups();
         })
         .catch(err => {
             console.log(err);
-            setIsLoading(false);
         })
-
-        closeAllPopups();
+        .finally(() => {
+            setIsLoading(false);
+        });
     }
 
     function handleAddPlaceSubmit (obj) {
@@ -191,31 +192,48 @@ function App() {
         api.postNewCard(obj)
         .then(newCard => {
             setCards([newCard, ...cards]);
-            setIsLoading(false);
+            closeAllPopups();
         })
         .catch(err => {
             console.log(err);
-            setIsLoading(false);
         })
-
-        closeAllPopups();
+        .finally(() => {
+            setIsLoading(false);
+        });
     }
 
-    function handleRegistration (res) {
-        setIsInfoToolTipOpen(true);
-        if (res.data) {
-            setIsRegistered(true);
-        }
-    }
-
-    function handleLogin (res) {
-        if (res) {
-            setIsLoggedIn(true);
-            if (res.token) {
-                localStorage.setItem('token', res.token);
+    function handleRegistration (email, password) {
+        auth.register(email, password)
+        .then((res) => {
+            if (res.data) {
+                setIsRegistered(true);
             }
-        }
-        tokenCheck();
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            setIsInfoToolTipOpen(true);
+        });
+        
+        
+    }
+
+    function handleLogin (email, password) {
+        auth.login(email, password)
+        .then((res) => {
+            if (res) {
+                setIsLoggedIn(true);
+                if (res.token) {
+                    localStorage.setItem('token', res.token);
+                }
+            }
+            tokenCheck();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+       
     }
     
   return (
