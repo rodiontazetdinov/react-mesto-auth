@@ -2,13 +2,9 @@ import React from 'react';
 
 function Input(props) {
 
-    function handleChange(e) {
-        props.onChange(e.target.value);
-      }
-
     return (
         <input 
-        className="popup__input popup__input_type_user-name"
+        className={props.className}
         id={props.id}
         type={props.type}
         name={props.name}
@@ -17,7 +13,7 @@ function Input(props) {
         maxLength={props.maxLength}
         required
         value={props.value}
-        onChange={handleChange}/>
+        onChange={props.onChange}/>
     )
 }
 

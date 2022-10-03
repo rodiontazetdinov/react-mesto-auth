@@ -1,7 +1,7 @@
 import logo from '../images/logo.svg';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import useWindowSize from '../utils/Hooks';
+import { useWindowSize } from '../utils/Hooks';
 
 function Header({ isLoggedIn, isOnLogin, onPageChange, userEmail, onExit}) {
 

@@ -2,14 +2,17 @@ import React from 'react';
 import PopupWithForm from './PopupWithForm';
 import Input from './Input';
 
+import { useForm } from './../utils/Hooks.js';
+
 function AddPlacePopup(props) {
 
-    const [name, setName] = React.useState('');
-    const [link, setLink] = React.useState('');
+    const {values, handleChange, setValues} = useForm({});
 
     React.useEffect(()=>{
-      setName(''); 
-      setLink('');
+      setValues({
+        name: '',
+        link: ''
+      });
    },[props.isOpen])
     
     function handleSubmit(e) {
@@ -18,8 +21,8 @@ function AddPlacePopup(props) {
       
         // Передаём значения управляемых компонентов во внешний обработчик
         props.onCardAdd({
-          name: name,
-          link: link
+          name: values.name,
+          link: values.link
         });
       } 
 
@@ -37,9 +40,9 @@ function AddPlacePopup(props) {
               id={'text'}
               placeholder={'Название'}
               maxLength={30}
-              value={name}
+              value={values.name || ''}
               type={'text'}
-              onChange={setName}
+              onChange={handleChange}
             />
             <span className="popup__error" id="text-error"></span>
             <Input
@@ -47,8 +50,8 @@ function AddPlacePopup(props) {
               id={'url'}
               placeholder={'Ссылка на картинку'}
               maxLength={1000}
-              value={link}
-              onChange={setLink}
+              value={values.link || ''}
+              onChange={handleChange}
               type={'url'}
             />
             <span className="popup__error" id="url-error"></span>

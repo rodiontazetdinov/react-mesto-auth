@@ -1,25 +1,18 @@
 import { Link, Navigate } from 'react-router-dom';
 import * as auth from '../utils/auth.js';
 import React from 'react';
+import { useForm } from './../utils/Hooks.js';
+import Input from './Input';
 
 
 function Register ({ onRegSubmit, isRegistered, onPageChange, isOnLogin }) {
 
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-
-    function handleEmailInput (e) {
-        setEmail(e.target.value)
-    }
-
-    function handlePasswordInput (e) {
-        setPassword(e.target.value)
-    }
+    const {values, handleChange, setValues} = useForm({});
 
     function handleSubmit (e) {
         e.preventDefault();
 
-        auth.register(email, password)
+        auth.register(values.email, values.password)
         .then((res) => {
             onRegSubmit(res);
         });
@@ -33,8 +26,8 @@ function Register ({ onRegSubmit, isRegistered, onPageChange, isOnLogin }) {
         <div className='auth-container'>
             <form className='auth' onSubmit={handleSubmit}>
                 <h2 className='auth__header'>Регистрация</h2>
-                <input className='auth__input' minLength={6} maxLength={20} type="email" placeholder='Email' value={email || ''} onChange={handleEmailInput}/>
-                <input className='auth__input' type="password" maxLength={16} minLength={8} placeholder='Пароль' value={password || ''} onChange={handlePasswordInput}/>
+                <Input className='auth__input' name='email' minLength={6} maxLength={20} type="email" placeholder='Email' value={values.email || ''} onChange={handleChange}/>
+                <Input className='auth__input' name='password' type="password" maxLength={16} minLength={8} placeholder='Пароль' value={values.password || ''} onChange={handleChange}/>
                 <button className='auth__btn' type='submit' >Зарегистрироваться</button>
                 <div className='auth__link-container'>
                     <p className='auth__text'>Уже зарегестрированы?</p>
