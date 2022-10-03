@@ -31,8 +31,6 @@ function App() {
     const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
     const [selectedCard, selectCard] = useState({});
     const [currentUser, setCurrentUserInfo] = useState({});
-    const [profilePopupBtnValue, setProfilePopupBtnValue] = useState('Сохранить');
-    const [addCardPopupBtnValue, setAddCardPopupBtnValue] = useState('Создать');
     const [isLoading, setIsLoading] = useState(false);
     const [cards, setCards] = useState([]);
     const [card, setCard] = useState({});
@@ -42,10 +40,10 @@ function App() {
 
         if (!token) return;
 
-        setIsLoggedIn(true);
         auth.checkToken(token)
         .then(data => {
             setUserData(data.data);
+            setIsLoggedIn(true);
         })
         .catch((err) => console.log(err));
     };
@@ -141,6 +139,22 @@ function App() {
             status: ''
         });
     }
+
+    const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.link;
+
+    useEffect(() => {
+        function closeByEscape(evt) {
+        if(evt.key === 'Escape') {
+            closeAllPopups();
+        }
+        }
+        if(isOpen) { // навешиваем только при открытии
+        document.addEventListener('keydown', closeByEscape);
+        return () => {
+            document.removeEventListener('keydown', closeByEscape);
+        }
+        }
+    }, [isOpen]); 
 
     function handleUpdateUser (obj) {
         setIsLoading(true);
