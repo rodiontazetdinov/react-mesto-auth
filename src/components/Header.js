@@ -1,5 +1,5 @@
 import logo from '../images/logo.svg';
-import { Link } from 'react-router-dom';
+import { Link, Route, Routes } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useWindowSize } from '../utils/Hooks';
 
@@ -62,6 +62,27 @@ function Header({ isLoggedIn, isOnLogin, onPageChange, userEmail, onExit}) {
                         </nav>
                     </>
                 }
+                {/* <Routes>
+                    <Route exact path="/">
+                        <div className="header__wrapper">
+                        <p className="header__user">das</p>
+                        <button className="header__logout" onClick={console.log}>
+                            Выйти
+                        </button>
+                        </div>
+                    </Route>
+                    <Route path="/signup">
+                        <Link className="header__auth-link" to="signin">
+                        Войти
+                        </Link>
+                    </Route>
+                    <Route path="/signin">
+                        <Link className="header__auth-link" to="signup">
+                        Регистрация
+                        </Link>
+                    </Route>
+                <Routes/> */}
+
             
         </header>
     )
